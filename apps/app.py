@@ -1,8 +1,10 @@
 from flask import Flask
 
-app = Flask(__name__)
 
+def create_app():
+    app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "Hello from Flask!"
+    from apps.crud import views as crud_views
+
+    app.register_blueprint(crud_views.crud, url_prefix="/crud")
+    return app
